@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "halt",
+  "version": "${version}",
+
+  "name": "Halt",
+  "description": "Halt cheat client for 1.15.2",
+  "authors": [
+    "cats (tragically)"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.cats.halt.HaltMod"
+    ]
+  },
+  "mixins": [
+    "halt.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
