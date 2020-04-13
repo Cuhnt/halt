@@ -7,6 +7,7 @@ import me.cats.halt.api.settings.Setting;
 import me.cats.halt.modules.misc.NoCompressionKickModule;
 import me.cats.halt.modules.movement.FlightModule;
 import me.cats.halt.modules.render.ESPModule;
+import me.cats.halt.modules.render.FreecamModule;
 import me.cats.halt.modules.render.HUDModule;
 import me.cats.halt.modules.movement.SprintModule;
 
@@ -37,6 +38,7 @@ public class ModuleManager {
         this.addModule(new HUDModule());
         this.addModule(new FlightModule());
         this.addModule(new ESPModule());
+        this.addModule(new FreecamModule());
         //TODO maybe a method to detect modules and init them automatically, but I'm not a huge fan of that idea tbh
     }
 
