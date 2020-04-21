@@ -69,11 +69,10 @@ public class ModuleManager {
      * @param message the text for a possible module command
      */
     public void dispatchModule(String message) {
-        final String moduleCommandInput = message.replaceFirst(Halt.INSTANCE.commandManager.prefix, "");
-        final String[] moduleCommand = moduleCommandInput.split(" ");
+        final String[] moduleCommand = message.split(" ");
         for (Module possibleModule : this.modules) {
             if (moduleCommand[0].equalsIgnoreCase(possibleModule.name)) {
-                final String[] commandArgs = moduleCommandInput.replace(moduleCommand[0] + " ", "").split(" ");
+                final String[] commandArgs = message.replace(moduleCommand[0] + " ", "").split(" ");
                 possibleModule.run(commandArgs);
             }
         }

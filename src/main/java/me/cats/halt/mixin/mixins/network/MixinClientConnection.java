@@ -53,16 +53,6 @@ public class MixinClientConnection {
      */
     @Inject( at = @At("HEAD"), method = "send(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V", cancellable = true)
     private void send(Packet packet, GenericFutureListener genericFutureListener, CallbackInfo ci) {
-        if(packet instanceof ChatMessageC2SPacket) {
-            final ChatMessageC2SPacket chatPacket = (ChatMessageC2SPacket) packet;
-            final String string = chatPacket.getChatMessage();
-            if (string.startsWith(Halt.INSTANCE.commandManager.prefix)) {
-                Halt.INSTANCE.commandManager.dispatchCommand(string);
-                Halt.INSTANCE.moduleManager.dispatchModule(string);
-                ci.cancel();
-            }
-        }
-
         OutGoingPacketEvent event = new OutGoingPacketEvent(packet);
         EventDispatcher.Companion.dispatch(event);
         if (event.canceled) ci.cancel();

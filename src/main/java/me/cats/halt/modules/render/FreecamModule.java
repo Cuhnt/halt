@@ -20,30 +20,47 @@ import net.minecraft.util.math.Vec3d;
  */
 public class FreecamModule extends Module {
 
+    /**
+     * the player's position, gotten when they activate the module
+     */
     private Vec3d playerPos;
 
     public FreecamModule() {
         super("Freecam", "Allows for free movement independently");
     }
 
+    /**
+     * get the player's position onEnable
+     */
     @Override
     public void onEnable() {
         super.onEnable();
         this.playerPos = mc.player.getPos();
     }
 
+    /**
+     * set the player's position onDisable
+     */
     @Override
     public void onDisable() {
         super.onDisable();
         mc.player.setPos(this.playerPos.x, this.playerPos.y, this.playerPos.z);
     }
 
+    /**
+     * Allow flying
+     * @param event movememnt tick event
+     */
     @Subscriber
     public void moveTick(MovementTickEvent event) {
         if (mc.player == null) return;
         mc.player.abilities.flying = true;
     }
 
+    /**
+     * Ignore incoming packets
+     * @param event The incoming packets
+     */
     @Subscriber
     public void packetReceive(IncomingPacketEvent event) {
         final Packet packet = event.packet;
@@ -54,6 +71,10 @@ public class FreecamModule extends Module {
         }
     }
 
+    /**
+     * Don't send the server what you're doing
+     * @param event the outgoing packets
+     */
     @Subscriber
     public void packetSend(OutGoingPacketEvent event) {
         final Packet packet = event.packet;

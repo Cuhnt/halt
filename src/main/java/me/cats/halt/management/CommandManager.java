@@ -33,11 +33,10 @@ public class CommandManager {
      * @param message the possible command gotten
      */
     public void dispatchCommand(String message) {
-        final String commandInput = message.replaceFirst(this.prefix, "");
-        final String[] command = commandInput.split(" ");
+        final String[] command = message.split(" ");
         for (Command possibleCommand : this.commands) {
             if (command[0].equalsIgnoreCase(possibleCommand.name)) {
-                final String[] commandArgs = commandInput.replace(command[0] + " ", "").split(" ");
+                final String[] commandArgs = message.replace(command[0] + " ", "").split(" ");
                 possibleCommand.run(commandArgs);
             }
         }

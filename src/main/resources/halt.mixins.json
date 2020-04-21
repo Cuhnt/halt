@@ -9,6 +9,7 @@
     "gui.MixinChatListenerHud",
     "gui.MixinInGameHud",
     "network.MixinClientConnection",
+    "entity.player.MixinClientPlayerEntity",
     "entity.player.MixinPlayerEntity",
     "render.MixinGameRenderer"
   ],
