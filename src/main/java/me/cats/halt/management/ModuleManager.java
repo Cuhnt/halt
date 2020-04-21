@@ -65,16 +65,19 @@ public class ModuleManager {
     }
 
     /**
-     * dispatches module commands to their run system
-     * @param message the text for a possible module command
+     * dispatches a gotten module command to the run system and returns if it was successfully dispatched or not
+     * @param message the possible module command checked
+     * @return if the module command was dispatched properly or not
      */
-    public void dispatchModule(String message) {
+    public boolean dispatchModuleBoolean(String message) {
         final String[] moduleCommand = message.split(" ");
         for (Module possibleModule : this.modules) {
             if (moduleCommand[0].equalsIgnoreCase(possibleModule.name)) {
                 final String[] commandArgs = message.replace(moduleCommand[0] + " ", "").split(" ");
                 possibleModule.run(commandArgs);
+                return true;
             }
         }
+        return false;
     }
 }

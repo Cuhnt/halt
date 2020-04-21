@@ -1,6 +1,7 @@
 package me.cats.halt.mixin.mixins.entity.player;
 
 import me.cats.halt.Halt;
+import me.cats.halt.utils.Logger;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,8 +25,12 @@ public class MixinClientPlayerEntity {
     private void sendChatMessage(String message, CallbackInfo ci) {
         if (message.startsWith(Halt.INSTANCE.commandManager.prefix)) {
             final String commandInput = message.replaceFirst(Halt.INSTANCE.commandManager.prefix, "");
-            Halt.INSTANCE.commandManager.dispatchCommand(commandInput);
-            Halt.INSTANCE.moduleManager.dispatchModule(commandInput);
+            // if it did not successfully go to a command, go to the module commands
+            if (!Halt.INSTANCE.commandManager.dispatchCommandBoolean(commandInput)) {
+                if (!Halt.INSTANCE.moduleManager.dispatchModuleBoolean(commandInput)) {
+                    Logger.log("Command not found! Try again");
+                }
+            }
             ci.cancel();
         }
     }
